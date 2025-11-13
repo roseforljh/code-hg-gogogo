@@ -3,720 +3,585 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Green Network - Protect Earth</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Dorksense | Logic for the Illogical</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind (configured inline) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neo-bg': '#FFFAE5',
+                        'neo-main': '#FF4D00', // Intense Orange
+                        'neo-accent': '#A3FF00', // Acid Green
+                        'neo-purple': '#9D00FF',
+                        'neo-black': '#0f0f0f',
+                        'neo-white': '#ffffff',
+                        'neo-blue': '#0047FF'
+                    },
+                    fontFamily: {
+                        'display': ['"Syne"', 'sans-serif'],
+                        'body': ['"Space Grotesk"', 'sans-serif'],
+                        'heavy': ['"Archivo Black"', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'neo': '8px 8px 0px 0px #0f0f0f',
+                        'neo-sm': '4px 4px 0px 0px #0f0f0f',
+                        'neo-lg': '12px 12px 0px 0px #0f0f0f',
+                        'neo-hover': '12px 12px 0px 0px #0f0f0f',
+                        'neo-active': '2px 2px 0px 0px #0f0f0f',
+                    },
+                    spacing: {
+                        '128': '32rem',
+                    },
+                    cursor: {
+                        'none': 'none',
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        :root {
-            --primary: #2e7d32;
-            --secondary: #4caf50;
-            --accent: #8bc34a;
-            --light: #e8f5e9;
-            --dark: #1b5e20;
-            --text: #333333;
-            --white: #ffffff;
-        }
-
+        /* Base Setup */
         body {
-            background-color: var(--light);
-            color: var(--text);
-            line-height: 1.6;
+            background-color: #FFFAE5;
+            color: #0f0f0f;
+            overflow-x: hidden;
+            cursor: none; /* Custom cursor handling */
         }
 
-        header {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: var(--white);
-            padding: 1rem 0;
-            position: sticky;
+        ::selection {
+            background-color: #0f0f0f;
+            color: #A3FF00;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 16px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFFAE5;
+            border-left: 3px solid #0f0f0f;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0f0f0f;
+            border: 3px solid #FFFAE5;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FF4D00;
+        }
+
+        /* Utilities */
+        .text-outline {
+            -webkit-text-stroke: 2px #0f0f0f;
+            color: transparent;
+        }
+        
+        .text-outline-white {
+            -webkit-text-stroke: 2px #ffffff;
+            color: transparent;
+        }
+
+        .clip-corner {
+            clip-path: polygon(
+                0 0, 
+                100% 0, 
+                100% calc(100% - 20px), 
+                calc(100% - 20px) 100%, 
+                0 100%
+            );
+        }
+
+        .grain {
+            position: fixed;
             top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
-
-        .logo i {
-            font-size: 2rem;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-
-        nav ul li {
-            margin-left: 2rem;
-        }
-
-        nav ul li a {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            padding: 0.5rem 0;
-            position: relative;
-        }
-
-        nav ul li a:hover {
-            color: var(--accent);
-        }
-
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
             left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        nav ul li a:hover::after {
-            width: 100%;
-        }
-
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80');
-            background-size: cover;
-            background-position: center;
-            height: 80vh;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            color: var(--white);
-        }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-        }
-
-        .btn {
-            display: inline-block;
-            background-color: var(--accent);
-            color: var(--white);
-            padding: 0.8rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn:hover {
-            background-color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        section {
-            padding: 5rem 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background-color: var(--accent);
-            border-radius: 2px;
-        }
-
-        .section-title p {
-            color: var(--text);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .about-img {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .about-img img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-
-        .about-img:hover img {
-            transform: scale(1.05);
-        }
-
-        .about-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: var(--dark);
-        }
-
-        .about-text p {
-            margin-bottom: 1.5rem;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 2rem 1rem;
-            background-color: var(--white);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .stat-item:hover {
-            transform: translateY(-10px);
-        }
-
-        .stat-item i {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .stat-item h3 {
-            font-size: 2.5rem;
-            color: var(--dark);
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-item p {
-            color: var(--text);
-        }
-
-        .initiatives {
-            background-color: var(--white);
-        }
-
-        .initiatives-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-
-        .initiative-card {
-            background-color: var(--light);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .initiative-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .initiative-img {
-            height: 200px;
-            overflow: hidden;
-        }
-
-        .initiative-img img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            z-index: 9998;
         }
 
-        .initiative-card:hover .initiative-img img {
-            transform: scale(1.1);
+        /* Marquee Animation */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 20s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
-        .initiative-content {
-            padding: 1.5rem;
-        }
-
-        .initiative-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-
-        .initiative-content p {
-            margin-bottom: 1.5rem;
-        }
-
-        .cta {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: var(--white);
-            text-align: center;
-            padding: 5rem 0;
-        }
-
-        .cta h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .cta p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta .btn {
-            background-color: var(--white);
-            color: var(--primary);
-        }
-
-        .cta .btn:hover {
-            background-color: var(--accent);
-            color: var(--white);
-        }
-
-        footer {
-            background-color: var(--dark);
-            color: var(--white);
-            padding: 3rem 0 1rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-column h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
+        /* Cursor */
+        #cursor {
+            position: fixed;
+            top: 0;
             left: 0;
-            width: 40px;
-            height: 2px;
-            background-color: var(--accent);
+            width: 24px;
+            height: 24px;
+            background-color: #0f0f0f;
+            border-radius: 0%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+            mix-blend-mode: difference;
         }
-
-        .footer-column p {
-            margin-bottom: 1rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-links li a {
-            color: var(--light);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .footer-links li a:hover {
-            color: var(--accent);
-            padding-left: 5px;
-        }
-
-        .social-links {
+        
+        /* Loader */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: #0f0f0f;
+            z-index: 10000;
             display: flex;
-            gap: 1rem;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: var(--white);
-            text-decoration: none;
-            transition: all 0.3s ease;
+            align-items: center;
         }
-
-        .social-links a:hover {
-            background-color: var(--accent);
-            transform: translateY(-5px);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        @media (max-width: 992px) {
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .initiatives-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .footer-content {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            nav ul {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: var(--primary);
-                flex-direction: column;
-                padding: 1rem 0;
-                text-align: center;
-                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-            }
-            
-            nav ul.active {
-                display: flex;
-            }
-            
-            nav ul li {
-                margin: 0;
-                padding: 0.8rem 0;
-            }
-            
-            .mobile-menu {
-                display: block;
-            }
-            
-            .initiatives-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Animation for stats counter */
-        .counter {
-            transition: all 0.5s ease;
+        .loader-bar {
+            width: 20px;
+            height: 0%;
+            background: #A3FF00;
+            margin: 0 5px;
         }
     </style>
 </head>
-<body>
-    <!-- Header -->
-    <header>
-        <div class="container nav-container">
-            <div class="logo">
-                <i class="fas fa-seedling"></i>
-                <span>Green Network</span>
-            </div>
-            <nav>
-                <div class="mobile-menu">
-                    <i class="fas fa-bars"></i>
-                </div>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#initiatives">Initiatives</a></li>
-                    <li><a href="#get-involved">Get Involved</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+<body class="font-body">
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container hero-content">
-            <h1>Protect Our Planet, Preserve Our Future</h1>
-            <p>Join the global movement to create a sustainable world through conservation, education, and community action.</p>
-            <a href="#get-involved" class="btn">Join Our Network</a>
-        </div>
-    </section>
+    <!-- Grain Overlay -->
+    <div class="grain"></div>
 
-    <!-- About Section -->
-    <section id="about">
-        <div class="container">
-            <div class="section-title">
-                <h2>About Green Network</h2>
-                <p>We are a global community dedicated to environmental protection and sustainable development.</p>
-            </div>
-            <div class="about-content">
-                <div class="about-img">
-                    <img src="https://images.unsplash.com/photo-1507591064344-4c6ce005b128?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Team planting trees">
-                </div>
-                <div class="about-text">
-                    <h3>Our Mission</h3>
-                    <p>Green Network is committed to creating a sustainable future by protecting natural ecosystems, promoting renewable energy, and empowering communities to take environmental action.</p>
-                    <p>Founded in 2010, we've grown from a small grassroots organization to an international network with over 50,000 members across 120 countries.</p>
-                    <p>Our approach combines scientific research, community engagement, and policy advocacy to address the most pressing environmental challenges of our time.</p>
-                    <a href="#" class="btn">Learn More</a>
-                </div>
-            </div>
-            <div class="stats">
-                <div class="stat-item">
-                    <i class="fas fa-tree"></i>
-                    <h3 class="counter" data-target="2500000">0</h3>
-                    <p>Trees Planted</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-users"></i>
-                    <h3 class="counter" data-target="50000">0</h3>
-                    <p>Active Members</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-globe-americas"></i>
-                    <h3 class="counter" data-target="120">0</h3>
-                    <p>Countries Reached</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-recycle"></i>
-                    <h3 class="counter" data-target="1500">0</h3>
-                    <p>Cleanup Projects</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Custom Cursor -->
+    <div id="cursor"></div>
 
-    <!-- Initiatives Section -->
-    <section class="initiatives" id="initiatives">
-        <div class="container">
-            <div class="section-title">
-                <h2>Our Initiatives</h2>
-                <p>Discover the key programs and projects we're implementing to protect our planet.</p>
-            </div>
-            <div class="initiatives-grid">
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://dialogue.earth/content/uploads/2021/04/lessons-from-the-rush-to-reforest-china-dialogue-2400x1599.jpg" alt="Reforestation">
-                    </div>
-                    <div class="initiative-content">
-                        <h3>Global Reforestation</h3>
-                        <p>Planting millions of trees worldwide to restore ecosystems, combat climate change, and protect biodiversity.</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
-                </div>
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://images.unsplash.com/photo-1621451537084-482c73073a0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Ocean Conservation">
-                    </div>
-                    <div class="initiative-content">
-                        <h3>Ocean Conservation</h3>
-                        <p>Protecting marine ecosystems, reducing plastic pollution, and promoting sustainable fishing practices.</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
-                </div>
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80" alt="Renewable Energy">
-                    </div>
-                    <div class="initiative-content">
-                        <h3>Renewable Energy</h3>
-                        <p>Promoting solar, wind, and other clean energy sources to reduce dependence on fossil fuels.</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
-                </div>
-            </div>
+    <!-- Loader -->
+    <div id="loader">
+        <div class="flex gap-2 h-32 items-end">
+            <div class="loader-bar"></div>
+            <div class="loader-bar"></div>
+            <div class="loader-bar"></div>
+            <div class="loader-bar"></div>
+            <div class="loader-bar"></div>
         </div>
-    </section>
+        <h1 class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-neo-bg font-display font-bold text-6xl mix-blend-exclusion">LOADING</h1>
+    </div>
 
-    <!-- CTA Section -->
-    <section class="cta" id="get-involved">
-        <div class="container">
-            <h2>Join Our Global Movement</h2>
-            <p>Together, we can create a sustainable future for generations to come. Every action counts, no matter how small.</p>
-            <a href="#" class="btn">Become a Member</a>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full flex justify-between items-center p-4 md:p-8 z-50 pointer-events-none mix-blend-difference text-[#FFFAE5]">
+        <div class="pointer-events-auto group cursor-none">
+            <span class="font-heavy text-3xl md:text-4xl tracking-tighter hover:text-neo-accent transition-colors">DORKSENSE.</span>
         </div>
-    </section>
+        <div class="pointer-events-auto hidden md:flex gap-8 font-bold text-lg">
+            <a href="#about" class="hover:line-through decoration-4 decoration-neo-accent">MANIFESTO</a>
+            <a href="#work" class="hover:line-through decoration-4 decoration-neo-accent">CHAOS</a>
+            <a href="#contact" class="border-2 border-[#FFFAE5] px-6 py-2 hover:bg-[#FFFAE5] hover:text-black transition-all duration-300 shadow-none hover:shadow-[4px_4px_0px_0px_#A3FF00]">TALK</a>
+        </div>
+        <!-- Mobile Menu Button (Visual Only for Demo) -->
+        <div class="pointer-events-auto md:hidden border-2 border-[#FFFAE5] p-2">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+        </div>
+    </nav>
 
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Green Network</h3>
-                    <p>We are dedicated to protecting our planet through collaborative action, education, and sustainable solutions.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    <main id="smooth-wrapper">
+        <div id="smooth-content">
+
+            <!-- HERO SECTION -->
+            <section class="relative min-h-screen flex flex-col justify-center items-center pt-20 overflow-hidden border-b-4 border-black bg-neo-bg">
+                
+                <!-- Floating Elements -->
+                <div class="absolute top-1/4 left-10 w-24 h-24 md:w-48 md:h-48 border-4 border-black bg-neo-main rounded-full shadow-neo float-anim opacity-80"></div>
+                <div class="absolute bottom-1/4 right-10 w-32 h-32 md:w-64 md:h-64 border-4 border-black bg-neo-purple rotate-12 shadow-neo float-anim-reverse z-10"></div>
+                <div class="absolute top-1/2 right-1/4 w-16 h-16 border-4 border-black bg-neo-accent shadow-neo-sm"></div>
+
+                <div class="relative z-20 text-center mix-blend-normal">
+                    <div class="overflow-hidden">
+                        <h1 class="hero-text font-display font-bold text-[12vw] leading-[0.85] tracking-tighter text-black">
+                            WE MAKE
+                        </h1>
+                    </div>
+                    <div class="overflow-hidden">
+                        <h1 class="hero-text font-display font-bold text-[12vw] leading-[0.85] tracking-tighter text-neo-blue text-outline">
+                            DIGITAL
+                        </h1>
+                    </div>
+                    <div class="overflow-hidden">
+                        <h1 class="hero-text font-display font-bold text-[12vw] leading-[0.85] tracking-tighter text-black">
+                            NOISE.
+                        </h1>
+                    </div>
+                    
+                    <p class="hero-sub mt-8 font-body text-xl md:text-2xl font-bold max-w-md mx-auto bg-white border-4 border-black p-4 shadow-neo rotate-2">
+                        Anti-boring web experiences for brands that hate playing it safe.
+                    </p>
+                </div>
+
+                <!-- Scroll Indicator -->
+                <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+                    <i data-lucide="arrow-down" class="w-12 h-12 text-black stroke-[3]"></i>
+                </div>
+            </section>
+
+            <!-- MARQUEE -->
+            <div class="w-full bg-neo-accent border-b-4 border-black py-6 overflow-hidden flex items-center transform -skew-y-2 origin-left mt-[-4px] z-30 relative">
+                <div class="marquee-container font-heavy text-4xl md:text-6xl text-black uppercase tracking-widest">
+                    <div class="marquee-content">
+                        /// NO TEMPLATES ALLOWED /// BRUTAL SIMPLICITY /// PIXEL PERFECTION IS DEAD /// LONG LIVE THE GLITCH /// DESIGN IS CHAOS /// 
+                        /// NO TEMPLATES ALLOWED /// BRUTAL SIMPLICITY /// PIXEL PERFECTION IS DEAD /// LONG LIVE THE GLITCH /// DESIGN IS CHAOS /// 
                     </div>
                 </div>
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#initiatives">Initiatives</a></li>
-                        <li><a href="#get-involved">Get Involved</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Our Programs</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Reforestation</a></li>
-                        <li><a href="#">Ocean Cleanup</a></li>
-                        <li><a href="#">Wildlife Protection</a></li>
-                        <li><a href="#">Climate Education</a></li>
-                        <li><a href="#">Sustainable Agriculture</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Contact Us</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Copper Creek Drive, New York</p>
-                    <p><i class="fas fa-phone"></i> +1 (312) 171-0771</p>
-                    <p><i class="fas fa-envelope"></i> support@greennetwork.org</p>
-                </div>
             </div>
-            <div class="copyright">
-                <p>&copy; 2025 Green Network. All rights reserved.</p>
-            </div>
+
+            <!-- MANIFESTO SECTION -->
+            <section id="about" class="relative py-32 px-4 md:px-12 bg-neo-black text-neo-bg overflow-hidden">
+                <div class="absolute top-0 right-0 w-1/2 h-full bg-neo-purple opacity-20 clip-polygon"></div>
+                
+                <div class="container mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 relative z-10">
+                    <div class="md:col-span-5">
+                        <div class="sticky top-32">
+                            <h2 class="font-heavy text-6xl md:text-8xl mb-6 text-neo-accent">THE<br>MANIFESTO</h2>
+                            <div class="w-full h-4 bg-neo-main border-2 border-white shadow-[4px_4px_0px_0px_#ffffff]"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="md:col-span-7 space-y-12 text-xl md:text-3xl font-bold leading-snug">
+                        <p class="manifesto-text opacity-20">
+                            We believe the internet has become a sterile hospital hallway. Everything is round, soft, and safe. <span class="text-neo-main bg-white px-2">We are the sledgehammer.</span>
+                        </p>
+                        <p class="manifesto-text opacity-20">
+                            Dorksense isn't about making sense. It's about making feelings. We utilize raw aesthetics to trigger dopamine receptors you didn't know you had.
+                        </p>
+                        <p class="manifesto-text opacity-20">
+                            Ugly is the new beautiful. Wrong is the new right. If your website doesn't look like it might crash the browser, you aren't trying hard enough.
+                        </p>
+
+                        <!-- Stats Box -->
+                        <div class="grid grid-cols-2 gap-4 mt-12">
+                            <div class="bg-neo-bg text-black border-4 border-white p-6 shadow-[8px_8px_0px_0px_#A3FF00] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all cursor-none stats-card">
+                                <h3 class="font-heavy text-5xl">99%</h3>
+                                <p class="text-sm font-mono uppercase mt-2">Chaos Factor</p>
+                            </div>
+                            <div class="bg-neo-main text-white border-4 border-white p-6 shadow-[8px_8px_0px_0px_#9D00FF] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all cursor-none stats-card">
+                                <h3 class="font-heavy text-5xl">0%</h3>
+                                <p class="text-sm font-mono uppercase mt-2">Subtlety</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SERVICES / GRID SECTION -->
+            <section class="py-20 bg-neo-blue border-t-4 border-black">
+                <div class="container mx-auto px-4">
+                    <div class="flex justify-between items-end mb-16 border-b-4 border-black pb-4">
+                        <h2 class="font-heavy text-5xl md:text-7xl text-white">OUR TOOLKIT</h2>
+                        <i data-lucide="wrench" class="w-12 h-12 text-neo-accent stroke-[3] animate-spin-slow"></i>
+                    </div>
+
+                    <!-- Bento Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 auto-rows-[300px]">
+                        
+                        <!-- Card 1 -->
+                        <div class="service-card bg-neo-bg border-4 border-black shadow-neo p-8 flex flex-col justify-between md:col-span-2 hover:bg-neo-accent transition-colors duration-300 group">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-heavy text-4xl uppercase">Web<br>Brutalism</h3>
+                                <i data-lucide="layout-grid" class="w-10 h-10 stroke-[3] group-hover:rotate-90 transition-transform duration-500"></i>
+                            </div>
+                            <p class="font-bold text-lg mt-4 border-t-2 border-black pt-4">
+                                Creating layouts that defy grid systems and user expectations.
+                            </p>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="service-card bg-neo-main border-4 border-black shadow-neo p-8 flex flex-col justify-center items-center text-center rotate-1 hover:rotate-0 transition-transform duration-300">
+                            <i data-lucide="zap" class="w-20 h-20 text-black fill-white mb-4 stroke-[3]"></i>
+                            <h3 class="font-display font-bold text-2xl text-white">HIGH VOLTAGE<br>DEVELOPMENT</h3>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="service-card bg-neo-black border-4 border-black shadow-neo p-8 flex flex-col justify-between text-white hover:shadow-none hover:translate-x-[8px] hover:translate-y-[8px] transition-all">
+                            <h3 class="font-heavy text-3xl text-neo-purple">MOTION<br>DESIGN</h3>
+                            <p class="text-gray-400">Things moving when they shouldn't.</p>
+                        </div>
+
+                        <!-- Card 4 -->
+                        <div class="service-card bg-white border-4 border-black shadow-neo p-0 overflow-hidden md:col-span-2 relative group">
+                            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop')] bg-cover bg-center filter grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500"></div>
+                            <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <h3 class="font-heavy text-5xl text-white -rotate-6">VISUAL CHAOS</h3>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- INTERACTIVE SECTION -->
+            <section class="py-32 bg-neo-bg flex flex-col items-center justify-center text-center overflow-hidden relative">
+                <div class="absolute inset-0 grid grid-cols-[repeat(20,1fr)] grid-rows-[repeat(20,1fr)] opacity-10 pointer-events-none">
+                    <!-- Generated grid lines via JS later or simple CSS -->
+                </div>
+                
+                <h2 class="font-display font-bold text-4xl md:text-6xl mb-12 z-10">ARE YOU BRAVE?</h2>
+                
+                <button id="danger-btn" class="relative group">
+                    <div class="absolute inset-0 bg-black translate-x-4 translate-y-4 transition-transform group-hover:translate-x-6 group-hover:translate-y-6"></div>
+                    <div class="relative border-4 border-black bg-neo-main px-12 py-8 font-heavy text-4xl md:text-6xl text-white hover:-translate-y-2 hover:-translate-x-2 active:translate-x-2 active:translate-y-2 transition-transform duration-100 flex items-center gap-4">
+                        <i data-lucide="skull" class="w-12 h-12 stroke-[3]"></i>
+                        DO NOT CLICK
+                    </div>
+                </button>
+
+                <div id="confetti-container" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
+            </section>
+
+            <!-- FOOTER -->
+            <footer class="bg-black text-neo-bg pt-20 pb-10 px-4 border-t-8 border-neo-accent">
+                <div class="container mx-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <div>
+                            <h1 class="font-heavy text-[15vw] md:text-[10vw] leading-none text-neo-bg select-none">DORK.</h1>
+                        </div>
+                        <div class="flex flex-col justify-end items-start md:items-end space-y-6">
+                            <a href="#" class="text-4xl font-display hover:text-neo-accent hover:ml-4 transition-all">INSTAGRAM -></a>
+                            <a href="#" class="text-4xl font-display hover:text-neo-accent hover:ml-4 transition-all">TWITTER -></a>
+                            <a href="#" class="text-4xl font-display hover:text-neo-accent hover:ml-4 transition-all">GITHUB -></a>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-20 pt-10 border-t-2 border-white/20 flex flex-col md:flex-row justify-between items-center text-sm font-mono">
+                        <p>© 2025 DORKSENSE INDUSTRIES. ALL RIGHTS RESERVED.</p>
+                        <p class="mt-4 md:mt-0">MADE WITH <span class="text-neo-main">♥</span> AND TOO MUCH CAFFEINE.</p>
+                    </div>
+                </div>
+            </footer>
+
         </div>
-    </footer>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.0.29/dist/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <script>
-        // Mobile Menu Toggle
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('nav ul').classList.toggle('active');
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // --- 1. Preloader Logic ---
+        const tlLoader = gsap.timeline();
+
+        tlLoader.to(".loader-bar", {
+            height: "100%",
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power4.inOut"
+        })
+        .to("#loader h1", {
+            opacity: 0,
+            duration: 0.2
+        })
+        .to("#loader", {
+            y: "-100%",
+            duration: 0.8,
+            ease: "power4.inOut"
+        }, "-=0.2")
+        .from(".hero-text", {
+            y: 200,
+            opacity: 0,
+            rotate: 5,
+            stagger: 0.1,
+            duration: 1,
+            ease: "power3.out"
+        }, "-=0.5");
+
+        // --- 2. Smooth Scroll Setup (Lenis) ---
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
         });
 
-        // Counter Animation
-        function animateCounters() {
-            const counters = document.querySelectorAll('.counter');
-            const speed = 200; // The lower the slower
-            
-            counters.forEach(counter => {
-                const target = +counter.getAttribute('data-target');
-                const count = +counter.innerText;
-                
-                const inc = target / speed;
-                
-                if(count < target) {
-                    counter.innerText = Math.ceil(count + inc);
-                    setTimeout(animateCounters, 1);
-                } else {
-                    counter.innerText = target;
-                }
-            });
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
         }
+        requestAnimationFrame(raf);
 
-        // Initialize counters when page loads
-        window.addEventListener('load', animateCounters);
+        // Connect Lenis to GSAP ScrollTrigger
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // --- 3. GSAP Animations ---
 
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    document.querySelector('nav ul').classList.remove('active');
+        // Floating elements parallax
+        gsap.to(".float-anim", {
+            y: -100,
+            scrollTrigger: {
+                trigger: "body",
+                start: "top top",
+                end: "bottom top",
+                scrub: 1
+            }
+        });
+        gsap.to(".float-anim-reverse", {
+            y: 150,
+            rotate: 45,
+            scrollTrigger: {
+                trigger: "body",
+                start: "top top",
+                end: "bottom top",
+                scrub: 1.5
+            }
+        });
+
+        // Manifesto Text Reveal
+        const manifestoTexts = document.querySelectorAll(".manifesto-text");
+        manifestoTexts.forEach(text => {
+            gsap.to(text, {
+                opacity: 1,
+                scrollTrigger: {
+                    trigger: text,
+                    start: "top 80%",
+                    end: "top 40%",
+                    scrub: true
                 }
             });
         });
+
+        // Stats Cards Hover Effect (Magnetic-ish via GSAP)
+        document.querySelectorAll('.stats-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                gsap.to(card, {
+                    x: (x - rect.width / 2) / 5,
+                    y: (y - rect.height / 2) / 5,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card, {
+                    x: 0,
+                    y: 0,
+                    duration: 0.5,
+                    ease: "elastic.out(1, 0.5)"
+                });
+            });
+        });
+
+        // Service Cards Stagger Entry
+        gsap.from(".service-card", {
+            y: 100,
+            opacity: 0,
+            rotate: 5,
+            stagger: 0.1,
+            duration: 0.8,
+            ease: "back.out(1.7)",
+            scrollTrigger: {
+                trigger: ".service-card",
+                start: "top 85%"
+            }
+        });
+
+        // --- 4. Custom Cursor Logic ---
+        const cursor = document.getElementById('cursor');
+        const links = document.querySelectorAll('a, button, .service-card');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Hover effects for cursor
+        links.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                cursor.style.width = '60px';
+                cursor.style.height = '60px';
+                cursor.style.backgroundColor = '#A3FF00'; // Neo accent
+                cursor.style.mixBlendMode = 'exclusion';
+            });
+            link.addEventListener('mouseleave', () => {
+                cursor.style.width = '24px';
+                cursor.style.height = '24px';
+                cursor.style.backgroundColor = '#0f0f0f';
+                cursor.style.mixBlendMode = 'difference';
+            });
+        });
+
+        // --- 5. Button Interaction (Confetti) ---
+        const dangerBtn = document.getElementById('danger-btn');
+        
+        dangerBtn.addEventListener('click', () => {
+            // Shake Screen
+            gsap.to("body", {
+                x: -10,
+                duration: 0.1,
+                yoyo: true,
+                repeat: 5
+            });
+
+            // Confetti Explosion
+            var duration = 2 * 1000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#FF4D00', '#A3FF00', '#9D00FF']
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#FF4D00', '#A3FF00', '#9D00FF']
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+
+            // Change text temporarily
+            const originalContent = dangerBtn.innerHTML;
+            dangerBtn.innerHTML = '<div class="relative border-4 border-black bg-neo-black px-12 py-8 font-heavy text-4xl md:text-6xl text-white flex items-center gap-4">OH NO!</div>';
+            
+            setTimeout(() => {
+                dangerBtn.innerHTML = originalContent;
+                lucide.createIcons(); // Re-init icons
+            }, 3000);
+        });
+
     </script>
 </body>
-
 </html>
